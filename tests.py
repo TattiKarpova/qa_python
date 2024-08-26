@@ -9,7 +9,6 @@ class TestBooksCollector:
     def test_add_book_in_favorites(self):
         collector = BooksCollector()
         collector.add_new_book('Алгоритмы')
-        collector.set_book_genre('Алгоритмы', "Ужасы")
         collector.add_book_in_favorites('Алгоритмы')
         assert 'Алгоритмы' in collector.favorites
 
@@ -58,9 +57,17 @@ class TestBooksCollector:
 
     def test_get_book_genre(self):
         collector = BooksCollector()
-        collector.add_new_book('Гарри Поттер и Могучий рыцарь')
-        collector.set_book_genre('Гарри Поттер и Могучий рыцарь', 'Ужасы')
-        assert collector.get_book_genre('Гарри Поттер и Могучий рыцарь') == 'Ужасы'
+        collector.add_new_book('My Book')
+        collector.set_book_genre('My Book', 'Ужасы')
+        assert collector.get_book_genre('My Book') == 'Ужасы'
+
+    def test_get_books_genre(self):
+        collector = BooksCollector()
+        collector.add_new_book('Цунами')
+        collector.set_book_genre('Цунами','Ужасы')
+        collector.add_new_book('Граф Монте Кристо')
+        collector.set_book_genre('Граф Монте Кристо','Детективы')
+        assert collector.get_books_genre() == {'Граф Монте Кристо': 'Детективы', 'Цунами': 'Ужасы'}
 
     def test_delete_book_from_favorites_notexist_book(self):
         collector = BooksCollector()
